@@ -161,8 +161,20 @@ automation:
       against ground-truth high-precision numerics at several bases before being relied
       on. No specification that reached the final library was mathematically wrong.'
   spend_usd: subscription-based
-  notes: The mathematics is classical (Erdős, Borwein, Van Assche). The Lean formalization
-    is produced by automation under the author's direction and verified mechanically.
+  notes: 'Roles, stated separately. Direction: the author selected the target (the
+    integer-base theorem as a machine-checked milestone of a larger q-harmonic
+    program), set the statement and its scope, directed the work, and takes
+    responsibility for the submission. Mathematical argument: classical (Erdős 1948;
+    Borwein 1991; Bundschuh-Väänänen 1994; Duverney 1996; Van Assche 2001); the proof
+    formalized follows Van Assche''s construction, and its adaptation to Lean --
+    lemma decomposition, the clearing factor, the size bounds -- was developed by AI
+    agents (Claude Code, claude-opus-5) under the author''s direction, not by the
+    author. Formalization: the same agents, against frozen lemma contracts.
+    Verification: mechanical (Lean, the axiom audit, Comparator) plus an independent
+    re-verification pass by a separate agent (claude-fable-5): clean rebuild from a
+    fresh checkout, axiom audit, comment-stripped sorry scan. Communication: the
+    Challenge documentation, this metadata and the library README were drafted by
+    agents and reviewed by the author before submission.'
 fidelity:
   divergences: 'The series is written as a tsum over n : PNat of 1 / ((t : Real)^n - 1)
     with t an integer satisfying 2 <= t; since the terms are positive and summable this
