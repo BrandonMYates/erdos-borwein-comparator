@@ -36,9 +36,8 @@ classification:
   - math.NT
   - math.CA
   msc2020:
-  - 11J72
-  - 33D45
-sources:
+  - '11J72'
+  - '33D45'sources:
 - title: On arithmetical properties of Lambert series
   authors:
   - Paul Erdős
