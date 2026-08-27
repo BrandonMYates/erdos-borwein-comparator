@@ -1,0 +1,165 @@
+version: v0.4
+project:
+  name: Irrationality of the q-harmonic series at every integer base
+  description: 'This project formalizes in Lean 4 the theorem that, for every integer
+    t >= 2, the number sum_{n >= 1} 1/(t^n - 1) is irrational. At t = 2 this number is
+    the Erdős–Borwein constant 1.60669515...; the series is the Lambert series of the
+    divisor function, sum_{n >= 1} 1/(t^n - 1) = sum_{m >= 1} tau(m) t^{-m}. The
+    t = 2 case is a theorem of Erdős (1948); the statement for every integer base is a
+    theorem of P. Borwein (1991). The proof formalized here is not either of those
+    proofs: it is the orthogonal-polynomial (Padé) proof of Van Assche (2001), which
+    constructs explicit integer linear forms in 1 and the series value from the little
+    q-Legendre polynomials and shows they tend to zero without vanishing. The compared
+    statement is unconditional. Scope, stated plainly: only integer bases are covered.
+    Irrationality for rational non-integer bases t = P/Q > 1 -- Chowla''s question,
+    recorded as Erdős problem #1049 -- is NOT addressed and nothing here claims anything
+    about it; no irrationality measure, linear-independence or transcendence statement
+    is asserted. The audience is, first, the irrationality and Diophantine-approximation
+    literature around the Erdős–Borwein constant (Erdős 1948; Borwein 1991, 1992;
+    Van Assche 2001; Tachiya 2004; Bundschuh–Zudilin 2007; Luca–Tachiya 2014), for which
+    this is, to the best of a targeted search recorded below, the first proof-assistant
+    formalization; and second, the formalization community, since the supporting library
+    contributes little q-Legendre polynomials, their orthogonality, and the associated
+    Padé identity, none of which is in Mathlib. The search for prior formalizations was
+    targeted, not exhaustive, and absence from search is not proof that none exists.'
+  authors:
+  - Brandon Yates
+  license: Apache-2.0
+  responsible_maintainers:
+  - Brandon Yates
+repository:
+  substantive_formalization:
+    id: BrandonMYates/qharm
+    revision: d77388e95c3560e966273a58b93e03761d541bec
+classification:
+  arxiv:
+  - math.NT
+  - math.CA
+  msc2020:
+  - 11J72
+  - 33D45
+sources:
+- title: On arithmetical properties of Lambert series
+  authors:
+  - Paul Erdős
+  location: J. Indian Math. Soc. (N.S.) 12 (1948), 63-66
+  type: paper
+  relationship: independently-proves
+  note: 'Proves the t = 2 case (irrationality of the Erdős–Borwein constant) by an
+    elementary 2-adic order-counting argument. The formalized proof is different in
+    method and covers every integer base; this entry independently proves the theorem
+    of this paper as a special case. Full text read (Rényi Institute Erdős archive,
+    1948-04).'
+  author_endorsement: not-contacted
+- title: On the irrationality of sum 1/(q^n + r)
+  authors:
+  - Peter Borwein
+  id: https://doi.org/10.1016/s0022-314x(05)80041-1
+  location: J. Number Theory 37 (1991), no. 3, 253-259
+  type: paper
+  relationship: independently-proves
+  note: 'Proves irrationality of sum 1/(q^n + r) for every integer q >= 2 and rational
+    r with q^n + r never zero, which contains the compared statement at r = -1. The
+    formalized proof is of the same Padé family but follows the later orthogonal-
+    polynomial presentation of Van Assche rather than this paper''s construction.'
+  author_endorsement: not-contacted
+- title: Little q-Legendre polynomials and irrationality of certain Lambert series
+  authors:
+  - Walter Van Assche
+  id: https://arxiv.org/abs/math/0101187
+  type: paper
+  relationship: formalizes
+  note: 'The proof formalized here follows this paper''s construction: little q-Legendre
+    polynomials, their orthogonality, and the resulting Padé-type linear forms in 1 and
+    the Lambert series value, with the clearing factor that makes the forms integral.
+    The formalization is restricted to the integer-base Lambert series sum 1/(t^n - 1)
+    and omits the paper''s other examples.'
+  author_endorsement: not-contacted
+- title: 'Erdős problem #1049 (Chowla''s question: is sum 1/(t^n - 1) irrational for
+    rational t > 1?)'
+  id: https://www.erdosproblems.com/1049
+  type: web discussion
+  relationship: background
+  note: 'The problem page records the integer-base case as settled and the rational
+    non-integer case as open. The compared statement is the settled integer-base case
+    only; it does not touch the open question. Read 2026-07-18.'
+  author_endorsement: not-contacted
+related_formalizations:
+- id: https://github.com/leanprover-community/mathlib4
+  relationship: independent
+  note: Mathlib supplies Irrational, tsum over the positive naturals, and the real-number
+    arithmetic used in the statement, so the Challenge introduces no definitions. Mathlib
+    has no little q-Legendre polynomials, no q-orthogonality, and no theorem about this
+    series; all of that is built in the supporting library.
+- id: https://www.isa-afp.org/entries/Irrational_Series_Erdos_Straus.html
+  relationship: independent
+  note: 'Isabelle/AFP entry "Irrationality Criteria for Series by Erdős and Straus"
+    (Koutsoukou-Argyraki and Li, 2020) formalizes general criteria for series of the form
+    sum b_n / prod a_i. Checked 2026-08-27: it does not formalize the irrationality of
+    sum 1/(t^n - 1) or of the Erdős–Borwein constant, and the compared statement does not
+    follow from the criteria it formalizes without further work. Recorded as the nearest
+    prior formalization found.'
+status:
+  scope: 'PROVED: for every integer t >= 2, sum_{n >= 1} 1/(t^n - 1) is irrational. NOT
+    PROVED and NOT CLAIMED: irrationality for any rational non-integer base; any
+    irrationality measure; any linear-independence or transcendence statement; and every
+    other result in the author''s working notes on this series, none of which is
+    advertised here.'
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+automation:
+  methods:
+  - method: agent
+    models:
+    - claude-opus-5
+    - claude-fable-5
+    framework: Claude Code
+    tool_setup: 'The supporting library (the pinned QHarm repository) was produced on
+      2026-08-26 by a lead agent (claude-opus-5) coordinating worker agents
+      (claude-opus-5) against frozen lemma contracts, under the author''s direction,
+      following Van Assche''s construction. Independent re-verification -- clean rebuild
+      from a fresh checkout, per-theorem axiom audit with #print axioms, comment-stripped
+      scan for sorry, native_decide and axiom declarations -- was performed by a separate
+      agent (claude-fable-5). The Challenge, Solution and this metadata were written by
+      the same verifying agent.'
+    cost:
+      wall_time: about two hours of wall-clock for the supporting library, concurrent agents
+      spend_usd: subscription-based
+      hardware: local Apple Silicon machine
+    prompting_notes: 'Three lead-agent sketches were improved or refused by worker agents
+      during construction; the most consequential was a degree-gap estimate in the
+      dominant-term separation that was correct but understated, replaced by an exact
+      subtraction-free identity. One proved bound (the tail estimate) was validated
+      against ground-truth high-precision numerics at several bases before being relied
+      on. No specification that reached the final library was mathematically wrong.'
+  spend_usd: subscription-based
+  notes: The mathematics is classical (Erdős, Borwein, Van Assche). The Lean formalization
+    is produced by automation under the author's direction and verified mechanically.
+fidelity:
+  divergences: 'The series is written as a tsum over n : PNat of 1 / ((t : Real)^n - 1)
+    with t an integer satisfying 2 <= t; since the terms are positive and summable this
+    is the ordinary value of the series. The compared statement is exactly the
+    integer-base theorem and nothing more. No other known divergence.'
+review:
+  status: agent-reviewed
+  reviewers:
+  - Claude Code agents (independent clean rebuild, per-theorem axiom audit, sorry scan)
+  notes: 'Reviewed internally, mechanically: the pinned library was rebuilt from a fresh
+    checkout against Mathlib v4.32.0; QHarm.master_int was checked with #print axioms to
+    depend on exactly propext, Classical.choice and Quot.sound; a comment-stripped scan of
+    the library found no sorry, native_decide or axiom declarations. No human expert has
+    reviewed the formalization.'
+alignment:
+  namespace: ErdosBorwein
+  statements:
+  - source: 'Erdős (1948), Theorem (t = 2); Borwein (1991), Theorem 1 at r = -1; Van
+      Assche (2001), the Lambert-series example'
+    lean: ErdosBorwein.irrational_qharmonic_int
+    module: Challenge
+    status: proved
+    note: 'The sources state the result for the series sum 1/(q^n - 1) with q an integer
+      at least 2 (Erdős: q = 2). The Lean statement quantifies over t : Int with 2 <= t
+      and takes the sum in the reals over n : PNat.'
+acknowledgements: Mathlib and its contributors; the Lean FRO for Lean, Comparator,
+  lean4export and Verso; the Mathlib Initiative for the formalization.yaml standard.
